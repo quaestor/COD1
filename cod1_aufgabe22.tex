@@ -1,0 +1,47 @@
+\section*{Aufgabe 22 - Überdeckungsradius}
+\addcontentsline{toc}{subsection}{Aufgabe 22 - Überdeckungsradius}
+\begin{enumerate}
+\item
+	Die \textsc{Hamming}-Codes sind $1$-perfekt. Ihr Überdeckungsradius ist
+	somit $\rho = 1$.
+\item
+	folgt aus (3.), denn die $y = H x$ mit $x$ aus der Menge der
+	\textit{coset leader} überdecken - da $H$ vollen Rang hat -
+	$\mathds{F}_q^{n-k}$. Jeder Vektor in $\mathds{F}_q^{n-k}$ lässt sich
+	also durch eine Linearkombination von $n - k$ Spalten aus $H$
+	darstellen. $x$ kann somit höchstens Gewicht $n - k$ haben.
+\item
+	Aus der Nearest-Codeword-Decodierungsregel mittels \textit{coset
+	leader} ($y \mapsto y - e, \quad e$ \textit{coset leader}) folgt, dass
+	das Gewicht von $e$ der Abstand zum nächsten Codewort ist.
+
+	Der \textit{coset leader} mit maximalem Gewicht kennzeichnet somit den
+	größten Abstand eines Elementes aus $\mathds{F}^n$ von einem Codewort
+	aus $\mathcal{C}$.
+\item
+	Dass jedes $y \in \mathds{F}_q^{n-k}$ sich durch eine Linearkombination
+	von $r \leq \rho$ Spalten von $H$ darstellen lässt, wurde bereits in (2.)
+	geschildert.
+	
+	Ist nun $y \in \mathds{F}_q^{n-k}$ Linearkombination von $r$ Spalten
+	aus $H$, so gibt es ein $x \in \mathds{F}_q^n$ mit $y = H x$, sodass
+	$d(x + c, c) = r\ \forall\ c \in \mathcal{C}$.
+	Kann man $y$ als Linearkombination von höchstens $r$ Spalten aus $H$
+	darstellen, so gilt $\rho \leq r$.
+\item
+	Dies folgt direkt aus 2. Die Minimaldistanz von MDS-Codes ist $d = n -
+	k + 1$, für lineare Codes gilt $\rho \leq n - k$.
+\item
+	$\mathcal{C}$ besteht aus Vektoren $\left(u(\alpha_1), u(\alpha_2),
+	\dots, u(\alpha_n)\right) \in \mathds{F}_q^n$, wobei $u(x)$ Polynom vom
+	Grad $< k$.
+
+	Sei $v(x)$ Polynom vom Grad $k$, $\underline{v} = \left(v(\alpha_1),
+	\dots, v(\alpha_n)\right) \not\in \mathcal{C}$. Angenommen $d(\underline{u},
+	\underline{v}) < n - k$, d.h. $u(\alpha_j) = v(\alpha_j)$ für mindestens $k +
+	1$ Stellen $\alpha_j$: Interpolationspolynom eindeutig!
+	\begin{align*} \Rightarrow\ & u(x) = v(x) \\
+		\Rightarrow\ & d(\underline{u}, \underline{v}) \geq n - k
+		\Rightarrow \rho = n - k
+	\end{align*}
+\end{enumerate}

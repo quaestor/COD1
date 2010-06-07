@@ -1,0 +1,69 @@
+\section*{Aufgabe 6 - Kapazität von speziellen Kanälen}
+\addcontentsline{toc}{subsection}{Aufgabe 6 - Kapazität von speziellen Kanälen}
+\begin{enumerate}
+\item
+	Hängt man einen $BSC_{r}$ an den Ausgang eines $BSC_{u}$, so ist die
+	Verteilung am Ausgang des $BSC_{r}$ durch folgende Matrix gegeben:
+	\[ \begin{bmatrix}(1-p)(1-r)+pr&(1-p)r+p(1-r)\\(1-p)r+(1-r)p&(1-p)(1-r)+pr\end{bmatrix} \]
+	Dies ist eine stochastische Matrix. Die Verkettung verhält sich also
+	wie ein $BSC_{u}$ mit $u = p(1-2r)+r$.
+\item
+	Aus Aufgabe 1 ist ersichtlich, dass die $n$-fache Verkettung von
+	Kanälen $BSC_{p}$ der Rekursionsgleichung $p[n] = p[n-1](1-2p)+p$ genügt:
+	\begin{eqnarray*} 
+		p[n] &=& p[n-1](1-2p)+p \\
+		p[n+1] &=& p[n](1-2p)+p \\
+		\Rightarrow p[n+1] - p[n] &=& p[n](1-2p)-p[n-1](1-2p)
+	\end{eqnarray*}
+	\[ p[n+1] - (2-2p)p[n] + (1-2p)p[n-1] = 0 \]
+	\[ \chi_{p}(z) = z^{2} - (2-2p)z + (1-2p) \]
+	\[ z_{1} = 1, \quad z_{2} = 1-2p\]
+	\[ \Rightarrow p[n] = \gamma + \delta(1-2p)^{n} \]
+	Einsetzen in die ursprüngliche Rekursion und Einsetzen des Startwertes
+	$p$ ergibt $\gamma = \frac{1}{2}$ und $\delta = -\frac{1}{2}$ und damit:
+	\[ p[n] = (1 - (1-2p)^{n})/2 = p_{N} \quad (N = n) \]
+	Die Kapazität $C_{BSC_{p}^{N}} = 1 - H_{2}(p_{N})$ ergibt sich dann wie
+	im Beispiel aus der Vorlesung (wobei $q_{N} = 1 - p_{N}$ und $(\alpha,
+	\beta)$ die Verteilung von $X$ ist):
+	\[ I[X,Y] = H[Y] - H[Y|X] = \]
+	\[ H_{2}(\alpha p_{N} + \beta q_{N}) - \alpha H_{2}(p_{N}) - \beta H_{2}(p_{N}) = \]
+	\[ H_{2}(\alpha p_{N} + \beta q_{N}) - H_{2}(p_{N}) \]
+	mit $\max_{X} I[X,Y] = 1 - H_{2}(p_{N})$ für $\alpha = \beta = \frac{1}{2}$.
+\item
+	Sei $p = (\frac{1}{3}, \frac{1}{3}, \frac{1}{6}, \frac{1}{6})$ und
+	$(\alpha, \beta)$ die Verteilung der Quelle.
+	\[ I[X,Y] = H[Y] - H[Y|X] = H[Y] - \alpha H(\frac{1}{3}, \frac{1}{6},
+	\frac{1}{6}, \frac{1}{3}) - \beta H(\frac{1}{6}, \frac{1}{3}, \frac{1}{3},
+	\frac{1}{6}) = \]
+	\[ H[Y] - H(p) = -2(\frac{\alpha}{3} + \frac{\beta}{6})
+	\log(\frac{\alpha}{3} + \frac{\beta}{6}) - 2(\frac{\alpha}{6} +
+	\frac{\beta}{3}) \log (\frac{\alpha}{6} + \frac{\beta}{3}) - H(p) = \]
+	\[ -\frac{2}{3}(1 + \alpha)(\log(1+\alpha) - \log(3)) -\frac{2}{3}(1 +
+	\beta)(\log(1+\beta) - \log(3)) - H(p) \]
+	Dies wird maximal für $\alpha = \beta = \frac{1}{2}$ und damit ist
+	\[C_{P} = 2\log(2) - H(p) = 2 - H(p) \approx 0.0817042 \]
+\item
+	Da alle Zeilen die gleichen Wahrscheinlichkeiten enthalten ist
+	\[ H[Y|X] = \sum_{i=1}^{m} \alpha_{i} H(p_{i,\bullet}) = H(p) \]
+	(mit $p_{i,\bullet} = i$-te Zeile der Matrix $P$ und $\alpha =
+	(\alpha_{1}, \dots, \alpha_{m})$ als Verteilung der Quelle).
+	Damit $H[Y] = \log n$ ist müssen die $\alpha_{i}$ so gewählt werden,
+	dass $q = [\alpha \cdot p_{\bullet,i}]_{1\leq i\leq n}$ die
+	Gleichverteilung ist (Ungleichung von \textsc{Gibbs}). Dies ist genau
+	dann der Fall, wenn auch $\alpha$ die Gleichverteilung ist, da die
+	Spalten von $P$ auch alle die gleichen Wahrscheinlichkeiten enthalten.
+	Damit folgt $C = \log n - H(p)$.
+\item
+	\[ P=\begin{bmatrix}1-p-q&q&p\\p&q&1-p-q\end{bmatrix} \]	
+	\[ H[Y] = H(\alpha(1-p-q)+\beta p, q, \alpha p + \beta(1-p-q)) =
+	H(\alpha(1-p-q)+\beta p, q, \alpha p + \beta(1-p-q)) \]
+	\[ H[Y|X] = \alpha H(1-p-q, q, p) + \beta H(p, q, 1-p-q) = H(1-p-q,q,p) =\]
+	\[ -(1-p-q) \log(1-p-q) -p\log(p) -q\log(q) \]
+	Wie angegeben ist die optimale Quelle für den Kanal die
+	Gleichverteilung, woraus folgt:
+	\[ I[X,Y] = H[Y] - H[Y|X] = \]
+	\[ H(\frac{1}{2}(1-p-q)+\frac{p}{2}, q, \frac{p}{2} +
+	\frac{1}{2}(1-p-q)) + (1-p-q) \log(1-p-q)  + p\log(p) + q\log(q) = \]
+	\[ -2\cdot\frac{1}{2}(1-q)\log(\frac{1}{2}(1-q)) + (1-p-q) \log(1-p-q) + p\log(p) = \]
+	\[ (1-q)(1-\log(1-q)) + (1-p-q) \log(1-p-q) + p\log(p) \]$\hfill \square$
+\end{enumerate}

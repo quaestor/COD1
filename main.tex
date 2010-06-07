@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+\pagestyle{empty}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[colorlinks=true,linkcolor=black,a4paper=true]{hyperref}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{automata}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{positioning}
+\usepackage{dsfont}
+\usepackage{amsmath, amsthm, amssymb}
+
+\title{Information und Codierung I\\
+       Wintersemester 2009/2010 \\
+       \small Lösungen zu den Übungsaufgaben}
+\author{\LaTeX-Version von Christoph Rauch\\ FAU Erlangen-Nürnberg}
+
+\makeatletter
+% Different format for headings
+\def\section{\@startsection{section}{1}%
+  \z@{.7\baselineskip\@plus\baselineskip}{.5\baselineskip}%
+  {\large\scshape\centering}}
+% This does spacing around caption.
+\setlength{\abovecaptionskip}{0.5em}
+\setlength{\belowcaptionskip}{0.5em}
+% This does justification (left) of caption.
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{#2}%
+  \ifdim \wd\@tempboxa >\hsize
+    #2\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\box\@tempboxa\hfill}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother
+
+\newcommand{\hk}{\mathcal{H}_{k}}
+\newcommand{\hkp}{\mathcal{H}_{k+1}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\include{cod1_aufgabe3}
+\include{cod1_aufgabe6}
+\include{cod1_aufgabe9}
+\include{cod1_aufgabe10}
+\include{cod1_aufgabe11}
+\include{cod1_aufgabe14}
+\include{cod1_aufgabe15}
+\include{cod1_aufgabe17}
+\include{cod1_aufgabe18}
+\include{cod1_aufgabe19}
+\include{cod1_aufgabe21}
+\include{cod1_aufgabe22}
+\include{cod1_aufgabe24}
+\end{document}

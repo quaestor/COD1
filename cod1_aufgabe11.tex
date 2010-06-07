@@ -1,0 +1,71 @@
+\section*{Aufgabe 11 - Binäre Hamming-Codes}
+\addcontentsline{toc}{subsection}{Aufgabe 11 - Binäre Hamming-Codes}
+\begin{enumerate}
+\item
+	Man erhält den Repetitionscode $R_{3}$:
+	\[ H_{2} = \begin{bmatrix}1&1&0\\1&0&1\end{bmatrix} \Leftrightarrow G =
+	\begin{bmatrix}1&1&1\end{bmatrix} \]
+\item
+	Da die Spalten von $H_{m}$ alle Vektoren (außer dem Nullvektor)
+	enthalten, lassen sich immer mindestens 3 (2 Binärvektoren sind immer
+	linear unabhängig!) linear abhängige Spalten finden (z.B. zwei
+	Einheitsvektoren und die Spalte, bei dem die entsprechenden beiden
+	Komponenten gleich $1$ sind), somit ist die Minimaldistanz dieser Codes
+	immer gleich $3$. Dies bedeutet, dass die Hammingkugeln mit Radius $1$
+	um die Codewörter disjunkt sind, denn:
+	\[ d(a, b) > 1 + 1 \Leftrightarrow S_{1}(a) \cap S_{t}(b) = \emptyset \]
+	Die $2^{k}$ Kugeln überdecken den ganzen $B^{n}$, da:
+	\[ 2^{k} \cdot \sum_{c\in\mathcal{C}} \#S_{1}(c) = 2^{k} \cdot
+	\left(\binom{n}{0}+\binom{n}{1}\right) = 2^{k} \cdot (n+1) = 2^{n} =
+	\#\mathds{B}^{n} \]
+	Somit sind die Codes $1$-perfekt.
+\item
+	Die Generatormatrix ist der Kern der Matrix $H_{m}$. Ordnet man jedoch
+	die Spalten so an, dass sich im hinteren Teil von $H_{m}$ die
+	Einheitsmatrix befindet, so ist die Konstruktion der Generatormatrix
+	einfach:	
+	\[ H_{m} = \left[ A | \mathds{1} \right] \Leftrightarrow G_{m} = \left[
+	\mathds{1} | A^{t}\right] \]
+\item	
+	Aus der \textsc{MacWilliams}-Identität geht hervor, dass, aufgrund von
+	\[ W_{\mathcal{C}^{\bot}}(z) = 1 + (2^{m} - 1)z^{2^{m-1}} \]
+	das Gewichtspolynom der Hamming-Codes folgender Form ist:
+	\[ W_{\mathcal{C}}(z) = \frac{1}{n+1}((1+z)^{n} +
+	n(1-z)^{\frac{n+1}{2}}(1+z)^{\frac{n-1}{2}}) \]
+	Zieht man hier die Terme mit $z^{3}$ heraus, so erhält man:
+	\[ w_{3} = \frac{1}{n+1}\left(\binom{n}{3} +
+		n\left(
+	-\binom{\frac{n+1}{2}}{1} \cdot \binom{\frac{n-1}{2}}{2} +
+ 	 \binom{\frac{n+1}{2}}{2} \cdot \binom{\frac{n-1}{2}}{1} -
+	 \binom{\frac{n+1}{2}}{3} + \binom{\frac{n-1}{2}}{3}\right)
+		\right) \]
+	und nach einigen Vereinfachungen durch die Rechenregeln für
+	Binomialkoeffizienten:
+	\[ w_{3} = \frac{n^{2} - n}{6} = \frac{1}{3} \binom{n}{2} \] 
+	%{\color{gray} = \frac{1}{3}
+	% \sum_{i=1}^{n-1} i} \]
+	% Leider entzieht sich mir die trivialere Lösung dieser Teilaufgabe.
+\item
+	Jede Zeile von $H_{m}$ enthält eine gerade Anzahl von Einsen (genau
+	$2^{m-1}$), da die Spalten alle Binärvektoren (außer dem $0$-Vektor)
+	sind und von diesen jeweils die Hälfte an einer Position eine 1, die
+	andere Hälfte eine 0 besitzt.
+	
+	Multipliziert man nun den $1$-Vektor an $H_{m}$, so erhält man den
+	$0$-Vektor. Der $1$-Vektor ist also Codewort.
+\item
+	Aufgrund von Teilaufgabe 5 kann es keine Codewörter mit Gewicht $n - 1$
+	und $n - 2$ geben, da ihre Komplemente im Code wären und damit Gewicht
+	$1$ oder $2$ hätten, was im Widerspruch zum Minimalgewicht steht.
+	
+	Aus dem gleichen Grund ist die Anzahl der Wörter mit Hamming-Gewicht $n
+	- 3$ gleich der Anzahl der Wörter mit Gewicht $3$.
+\item
+	Blockfehlerwahrscheinlichkeit:
+	\[ P[x\not=\hat x] 1 - P[x=\hat x] = 1 - (1-p)^{n} - n\cdot
+	% Die Rechnung sollte hier eventuell noch näher ausgeführt werden
+	p(1-p)^{n-1}\backsimeq \binom{n}{2}p^2 \]
+	d.h. je größer $m$, desto steiler ist die Kurve der
+	Fehlerwahrscheinlichkeit. Analoges gilt für die
+	Bitfehlerwahrscheinlichkeit.
+\end{enumerate}

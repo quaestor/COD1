@@ -1,0 +1,49 @@
+\section*{Aufgabe 19 - Decodierung mittels Hadamard-Transformation}
+\addcontentsline{toc}{subsection}{Aufgabe 19 - Decodierung mittels Hadamard-Transformation}
+\begin{enumerate}
+	\item
+	Die ML-Decodierung aus Aufgabe 17 lässt sich auch so schreiben:
+	\[ argmax_{c_{1},c_{2},\dots,c_{n}\in\mathcal{C}}\sum_{j=1}^{n}
+	(-1)^{u\cdot g_{j}}\mu(y_{j}) \]
+	Dies ist genau das Ergebnis der Multiplikation $\hk \cdot \mu(y)$, da
+	die Einträge von $\mu$ wie die Spalten von $\hk$ indiziert sind und die
+	Hadamard-Matrix an der Stelle $(u, v)$ genau den Eintrag
+	$(-1)^{u\cdot v}$ besitzt. Alle Einträge von $\mu$, für deren Index $v$
+	keine Spalte in der Generatormatrix existiert, sind $0$.
+	\item
+	\begin{itemize}
+	\item Multiplikation $\hk \cdot \mu(y)$: $k \cdot 2^{k}$ Additionen
+	\item $n$ Subtraktionen, um $\mu(y)$ zu erstellen (da $G$ genau $n$
+	Spalten hat, bzw. natürlich für jedes $y_{j}$ das entsprechende
+	$\mu(y_{j})$ berechnet werden muss)
+	\item $2^{k} - 1$ Vergleiche, um das Maximum herauszusuchen
+	\end{itemize}
+	\item
+	\lstset{ %
+		language=Mathematica,
+		basicstyle=\small,
+		numbers=left,
+		numberstyle=\small,
+		numbersep=-9pt
+	}
+	\begin{lstlisting}
+	mu[y_] := Log[2, P[[y, 1]]/P[[y, 2]]];
+
+	Mu[y_, G_] :=
+	  Flatten[
+	   Table[
+	    Sum[mu[y[[j]] + 1],
+	     {j, Position[
+	       Transpose[G],
+	       IntegerDigits[i, 2, Length[G]]
+	       ]}
+	     ], {i, 0, 2^Length[G] - 1}]];
+
+	Dml[y_, G_] :=
+	  Module[{M = HadamardMultiply[Mu[y, G]]},
+	   IntegerDigits[
+	    Position[M, Max[M]] - 1, 2, Length[G]]
+	   ];
+	\end{lstlisting}
+	Hierbei ist $P$ die entsprechende Kanalmatrix, $G$ die Generatormatrix.
+\end{enumerate}

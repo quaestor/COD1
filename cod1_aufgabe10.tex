@@ -1,0 +1,39 @@
+\section*{Aufgabe 10 - Fehlerwahrscheinlichkeit bei ML-Decodierung}
+\addcontentsline{toc}{subsection}{Aufgabe 10 - Fehlerwahrscheinlichkeit bei ML-Decodierung}
+\begin{enumerate}
+	\item
+	Da $c'$ die Wahrscheinlichkeit $P(y|c)$ maximiert
+	(\textit{maximum-likelihood}-Eigenschaft) ist $P(y|c') \geq P(y|c)$ und
+	die erste Ungleichung folgt aus der Monotonie der Wurzelfunktion.
+	Da die Wurzelfunktion auf nichtnegative Werte abbildet, gilt auch die
+	Ungleichung beim Weglassen der Bedingung $D_{ml}(y)=c'$ in der inneren
+	Summe.
+	\item
+	\[ \sum_{y\in B^n}\sqrt{P(y|c)\cdot P(y|c')} = \sum_{y\in
+	B^n}\sqrt{\prod_{1\leq j\leq n} p(y_j|c_j) \prod_{1\leq j\leq n}
+	p(y_j|c_j')} = \]
+	\[ \sum_{y\in B^n}\prod_{1\leq j\leq n}\sqrt{p(y_j|c_j)\cdot
+	p(y_j|c_j')} \]
+	Vertauschen der Summe mit dem Produkt (Distributivgesetz!) führt zum
+	Gewünschten Ergebnis.
+	\item
+	Cauchy-Schwarz-Ungleichung:
+	\[ \sum_{y\in B}\sqrt{p(y|c_j)}\sqrt{p(y|c_j')} \leq \sqrt{\sum_{y\in
+	B}p(y|c_j)} \cdot \sqrt{\sum_{y\in B}p(y|c_j')} = \sqrt{1} \cdot
+	\sqrt{1} = 1 \]
+	\item
+	Aus Symmetriegründen ist die Potenz von $\gamma$ genau der
+	\textsc{Hamming}-Abstand von $c$ und $c'$, d.h. die Anzahl der $j$, für
+	die $c_j \not= c_j'$ gilt, ist $d(c,c')$.
+	\[ \gamma_{BSC_p} = 2\sqrt{p-p^2} \]
+	\item
+	Das Produkt über die $\gamma$ besteht aus mindestens $d$ Faktoren, der
+	Rest wird vernachlässigt ($\gamma \leq 1$):
+	\[ P_{err}(c) \leq
+	\sum_{\substack{c'\in\mathcal{C}\\c'\not=c}}\prod_{\substack{1\leq
+	j\leq n\\c_j'\not=c_j}}\underbrace{\gamma}_{\leq 1} \leq
+	\sum_{\substack{c'\in\mathcal{C}\\c'\not=c}}\gamma^d = (M - 1)\cdot
+	\gamma^d \]
+	\item
+	\[ \gamma = 2\sqrt{\frac{p(1-p)}{q-1}}+p\frac{q-2}{q-1} \]
+\end{enumerate}

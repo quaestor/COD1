@@ -1,0 +1,44 @@
+\section*{Aufgabe 3 - Entropie spezieller Verteilungen}
+\addcontentsline{toc}{subsection}{Aufgabe 3 - Entropie spezieller Verteilungen}
+\begin{enumerate}
+	\item
+		Da die ZV $X$ eine Summe von $n$ unabhängigen Zuvallsvariablen
+		$X_1, \dots, X_n$ ist, mit $X_1 = \dots = X_n = p^k(1-p)^{1-k}$, gilt:
+		\[ H[X_1, \dots, X_n] = H[X_1] + \dots + H[X_n] =  \] 
+		\[ n \cdot H[X_1] = - n \cdot \sum_{k=0}^1 p^k(1-p)^{1-k} \log(p^k(1-p)^{1-k}) = \]
+		\[ - n ((1-p) \log(1-p) + p \log(p)) = n \cdot H_2(p) \]
+		Jedoch folgt daraus nicht, dass $H[X] = n \cdot H_2(p)$, vielmehr:
+		\[ H[X] = -\sum_{k=0}^n p_k \log(\binom{n}{k} p^k (1-p)^{n-k}) = \]
+		\[ -\sum_{k=0}^n p_k \log(\frac{n!}{k!(n-k)!} p^k (1-p)^{n-k}) = \]
+		\[ -\sum_{k=0}^n p_k (\log(n!) - \log(k!) - \log((n-k)!) + k \cdot \log(p) + (n-k) \log(1-p)) = \]
+		\[ -\log(n!) \cdot 1 -\log(p) \cdot n \cdot p - n \cdot \log(1-p) +
+		   \log(1-p) \cdot n \cdot p -\sum_{k=0}^n p_k (-\log(k!) - \log((n-k)!)) = \]
+		\[ n\cdot H_2(p) - \log(n!) - \sum_{k=0}^n p_k (-\log(k!) - \log((n-k)!)) \]
+		Die Summe ist bereits für $n = 1$ ungleich $-\log(n!)$.
+	\item
+		\[ H[X] = -\sum_{k\in\mathds{N}} p_k \log(p_k) = -\sum_{k\in\mathds{N}} p(1-p)^k \log(p(1-p)^k) = \]
+		\[ -\sum_{k\in\mathds{N}} p(1-p)^k(\log(p) + k \cdot \log(1-p))
+		   = -\sum_{k\in\mathds{N}} ((1-p)^kp\log(p) + p(1-p)^kk\log(1-p)) = \]
+		\[ -p\log(p)\sum_{k\in\mathds{N}}(1-p)^k - p\log(1-p)\sum_{k\in\mathds{N}}k(1-p)^k = \]
+		\[ -p\log(p)\frac{1}{p} + p\log(1-p)\cdot(1-p)\frac{\partial}{\partial p}\sum_{k\in\mathds{N}}(1-p)^k = \]
+		\[ \frac{1}{p}(-p\log(p)-(1-p)\log(1-p)) = \frac{H_2(p)}{p} \] $\hfill \square$
+	\item
+		Die Aufgabe besteht darin, $-\sum_{i=1}^n p_i \log(p_i)$ unter
+		den Nebenbedingungen $\sum_{i=1}^n p_i a_i = \mu$ und $\sum_{i=1}^n p_i = 1$ zu
+		maximieren. Mit der Methode der Lagrange-Multiplikatoren ($p =
+		(p_1, \dots, p_n), \lambda = (\lambda_1, \lambda_2)$):
+		\[ h(p, \lambda) = (-\sum_{i=1}^n p_i \log(p_i) - \lambda_1
+		   (\sum_{i=1}^n p_i a_i - \mu) - \lambda_2 (\sum_{i=1}^n p_i - 1)) \]
+		Ableiten und komponentenweise gleich $0$ setzen ergibt:
+		\[ -\log(p_i) - 1 - \lambda_1 a_i - \lambda_2 = 0 \]
+		\[ \log(p_i) = -1 - \lambda_1 a_i - \lambda_2 \]
+		\[ p_i = e^{-1-\lambda_1 a_i - \lambda_2} = \alpha e^{-\beta
+		   a_i}, \quad \alpha = \lambda_1, \beta = -(1+\lambda_2) \] $\hfill \square$
+	\item
+		Ungleichung von \textsc{Gibbs}:
+		\[ H(p_1, \dots, p_n) \leq -\sum_{k=0}^n p_k \cdot
+		   \log(p(1-p)^k) = -\sum_{k=0}^n p_k \cdot (\log(p) + k\log(1-p)) = \]
+		\[ - \left(\log(p) + \log(1-p) \underbrace{\sum_{k=0}^n p_k \cdot
+		   k}_{E[Z] = \frac{1-p}{p}}\right) = \frac{H_2(p)}{p} \]
+		Dies ist genau die Entropie der geometrischen Verteilung. $\hfill \square$
+\end{enumerate}

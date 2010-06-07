@@ -1,0 +1,13 @@
+\section*{Aufgabe 17 - Decodierung mittels der log-likelihood-Funktion}
+\addcontentsline{toc}{subsection}{Aufgabe 17 - Decodierung mittels der log-likelihood-Funktion}
+	\noindent Sei oBdA $P[0|0] > P[1|0]$. Dann lässt sich
+	\[ D : y \mapsto argmax_{c_{1},c_{2},\dots,c_{n}\in\mathcal{C}} \sum_{i=1}^{n} (-1)^{c_{i}} \mu(y_{i}) \]
+	wegen
+	\[ c_{i} = 0 \Leftrightarrow \mu(y_{i}) \geq 0 \quad \quad \quad c_{i} = 1 \Leftrightarrow \mu(y_{i}) \leq 0 \]
+	umformen zu:
+	\[ argmax_{c_{1},c_{2},\dots,c_{n}\in\mathcal{C}} \sum_{i=1}^{n} \log_{2}(p(y_{i}|c_{i})) - \log_{2}(p(y_{i}|1+c_{i})) \]
+	Da $P$ stochastische Matrix ist, maximiert das $c \in \mathcal{C}$ mit
+	\[ D_{ml} : y \mapsto argmax_{c\in\mathcal{C}} p(y|c) = argmax_{c_{1},c_{2},\dots,c_{n}} \prod_{i=1}^{n} p(y_{i}|c_{i}) \]
+	auch
+	\[ argmax_{c_{1},c_{2},\dots,c_{n}} \prod_{i=1}^{n} \frac{p(y_{i}|c_{i})}{p(y_{i}|1+c_{i})} \]
+	Anwenden der monotonen Logarithmusfunktion auf diesen Ausdruck ergibt genau die Behauptung.

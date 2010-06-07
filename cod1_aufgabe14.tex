@@ -1,0 +1,68 @@
+\section*{Aufgabe 14 - Gewichtspolynome der Simplexcodes und von Hamming-Codes}
+\addcontentsline{toc}{subsection}{Aufgabe 14 - Gewichtspolynome der Simplexcodes und von Hamming-Codes}
+\begin{enumerate}
+\item
+	Die \textsc{Reed-Muller}-Codes $RM(1,m)$ haben minimale
+	\textsc{Hamming}-Distanz $2^{m-1}$ (siehe Blätter zu
+	\textsc{Reed-Muller}-Codes). Da der Einsvektor bei diesen Codes ein
+	gültiges Codewort ist (eine Zeile der Generatormatrix besteht nur aus
+	Einsen) enthalten diese Codes nur den Nullvektor, den Einsvektor und
+	Wörter mit \textsc{Hamming}-Gewicht genau gleich $2^{m-1}$.
+
+	Aus den $RM(1,m)$ lassen sich nun auf einfache Weise die Simplexcodes
+	ableiten, indem man aus den Wörtern von $RM(1,m)$ alle Wörter die mit
+	einer $0$ beginnen wählt und diese $0$ streicht, was leicht aus der
+	Generatormatrix ersichtlich ist:
+
+	\[ G_{RM(1,m)} = \begin{bmatrix}1&\begin{matrix}1&\dots&1\end{matrix}\\
+	\begin{matrix}0\\\vdots\\0\end{matrix}&H_{m} \end{bmatrix}\]
+
+	(Die Kontrollmatrix $H_{m}$ des \textsc{Hamming}-Codes ist gleichzeitig
+	die Generatormatrix des zugehörigen Simplexcodes.)
+
+	Da bei diesem Vorgang der Einsvektor verloren geht, aber bei den
+	anderen Codevektoren nur eine $0$ entfernt wird, bleibt das
+	\textsc{Hamming}-Gewicht von $2^{m-1}$ erhalten.
+
+	Somit haben die Simplexcodes nur noch ein Wort vom Gewicht $0$ und
+	$2^{m} - 1$ Wörter vom Gewicht $2^{m-1}$, was für das Gewichtspolynom
+	bedeutet:
+
+	\[ W_{S_{m}} = 1 + (2^{m} - 1)z^{2^{m-1}} \]
+\item
+	Bestimmung des Gewichtspolynoms des $[15,11,3]$-\textsc{Hamming}-Codes
+	mithilfe der \textsc{MacWilliams}-Identität in Mathematica:
+	\lstset{ %
+		language=Mathematica,
+		basicstyle=\small,
+		numbers=left,
+		numberstyle=\small,
+		numbersep=-9pt
+	}
+	\begin{lstlisting}
+	n := 2^m - 1;
+	WSm[x_] := 1 + (2^m - 1)*x^(2^(m - 1));
+	WHm[z_] := 2^(-m)*(1 + z)^(2^m - 1)*WSm[(1 - z)/(1 + z)];
+
+	m = 4;
+	Together[WHm[z]] // Expand
+	\end{lstlisting}
+	\begin{align*}
+	W_{H(15,11)} & = 1 + 35 z^3 + 105 z^4 + 168 z^5 + 280 z^6 + 435 z^7 + 435 z^8 + \\
+	& 280 z^9 + 168 z^{10} + 105 z^{11} + 35 z^{12} + z^{15}
+	\end{align*}
+
+	Selbiges für den $[31,25,3]$-\textsc{Hamming}-Code:
+	\begin{lstlisting}[firstnumber=7]
+	m = 5;
+	Together[WHm[z]] // Expand
+	\end{lstlisting}
+	\begin{align*}
+	W_{H(31,25)} & = 1 + 155 z^3 + 1085 z^4 + 5208 z^5 + 22568 z^6 + 82615 z^7 +  \\
+	& 247845 z^8 + 628680 z^9 + 1383096 z^{10} + 2648919 z^{11} + \\
+	& 4414865 z^{12} + 6440560 z^{13} + 8280720 z^{14} + 9398115 z^{15} +  \\
+	& 9398115 z^{16} + 8280720 z^{17} + 6440560 z^{18} + 4414865 z^{19} +  \\
+	& 2648919 z^{20} + 1383096 z^{21} + 628680 z^{22} + 247845 z^{23} +  \\
+	& 82615 z^{24} + 22568 z^{25} + 5208 z^{26} + 1085 z^{27} + 155 z^{28} + z^{31}
+	\end{align*}
+\end{enumerate}

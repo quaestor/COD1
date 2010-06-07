@@ -1,0 +1,279 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     10954,        270]
+NotebookOptionsPosition[     10538,        253]
+NotebookOutlinePosition[     10883,        268]
+CellTagsIndexPosition[     10840,        265]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HadamardMultiply", "[", "x_", "]"}], ":=", "\[IndentingNewLine]", 
+   
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"d", ",", "i"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"d", "=", 
+       RowBox[{"HadamardMultiplyRec", "[", "x", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "\[IndentingNewLine]", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+          RowBox[{
+          "Index", " ", "j", " ", "bin\[ADoubleDot]r", " ", "von", " ", 
+           "hinten", " ", "gelesen"}], ",", " ", 
+          RowBox[{
+           RowBox[{"'", 
+            RowBox[{"Butterfly", "'"}]}], "-", "Algorithmus"}]}], " ", "*)"}],
+         "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"i", "=", 
+           RowBox[{"1", "+", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+             "Mathematica", " ", "beginnt", " ", "Indizierung", " ", "bei", 
+              " ", "1"}], " ", "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"FromDigits", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"Reverse", "[", "\[IndentingNewLine]", 
+               RowBox[{"IntegerDigits", "[", 
+                RowBox[{
+                 RowBox[{"j", "-", "1"}], ",", "2", ",", 
+                 RowBox[{"Log", "[", 
+                  RowBox[{"2", ",", 
+                   RowBox[{"Length", "[", "d", "]"}]}], "]"}]}], "]"}], "]"}],
+               ",", "2"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"d", "[", 
+           RowBox[{"[", "i", "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"Length", "[", "d", "]"}]}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.4690022592690973`*^9, 3.469002327918186*^9}, {
+  3.469003434338305*^9, 3.4690034972600927`*^9}, {3.469003697786821*^9, 
+  3.4690037661919317`*^9}, {3.469004329416133*^9, 3.4690043825742483`*^9}, {
+  3.4690059102509336`*^9, 3.469005921747596*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HadamardMultiplyRec", "[", "x_", "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"prinzipiell", " ", "FFT"}], "-", 
+     RowBox[{
+     "Algorithmus", " ", "ohne", " ", "Verwendung", " ", "von", " ", 
+      "Einheitswurzeln"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"c", ",", "g", ",", "u"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", "x", "]"}], "\[Equal]", "1"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"x", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"g", "=", 
+         RowBox[{"HadamardMultiplyRec", "[", 
+          RowBox[{"Take", "[", 
+           RowBox[{"x", ",", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", 
+              RowBox[{"-", "1"}], ",", "2"}], "}"}]}], "]"}], "]"}]}], ";", 
+        RowBox[{"(*", " ", 
+         RowBox[{"x1", ",", " ", "x3", ",", " ", "x5", ",", " ", "..."}], " ",
+          "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"u", "=", 
+         RowBox[{"HadamardMultiplyRec", "[", 
+          RowBox[{"Take", "[", 
+           RowBox[{"x", ",", 
+            RowBox[{"{", 
+             RowBox[{"2", ",", 
+              RowBox[{"-", "1"}], ",", "2"}], "}"}]}], "]"}], "]"}]}], ";", 
+        RowBox[{"(*", " ", 
+         RowBox[{"x2", ",", " ", "x4", ",", " ", "x6", ",", " ", "..."}], " ",
+          "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"c", "=", 
+         RowBox[{"Flatten", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"g", "+", "u"}], ",", 
+            RowBox[{"g", "-", "u"}]}], "}"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"2", "^", "k"}], " ", 
+           RowBox[{"Additionen", "/", "Subtraktionen"}], " ", "pro", " ", 
+           "Ebene", " ", "im", " ", "Rekursionsbaum"}], ",", " ", 
+          RowBox[{
+           RowBox[{"Log", "[", 
+            RowBox[{"2", ",", 
+             RowBox[{"2", "^", "k"}]}], "]"}], "=", 
+           RowBox[{"k", " ", "Ebenen"}]}], ",", " ", 
+          RowBox[{"insgesamt", " ", "also", " ", "k", " ", "*", " ", 
+           RowBox[{"2", "^", "k"}], " ", 
+           RowBox[{"Additionen", "/", "Subtraktionen"}]}]}], " ", "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"Return", "[", "c", "]"}], ";"}]}], "\[IndentingNewLine]", 
+      "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.469000957012597*^9, 3.469000978684317*^9}, {
+   3.4690010096144123`*^9, 3.469001103443986*^9}, {3.469001299647004*^9, 
+   3.469001452503831*^9}, {3.46900170230466*^9, 3.469001725452188*^9}, {
+   3.469001789292056*^9, 3.469001789912698*^9}, {3.4690018674897957`*^9, 
+   3.469001872716425*^9}, {3.469001931714593*^9, 3.4690019917060423`*^9}, {
+   3.469002021782487*^9, 3.469002279341428*^9}, {3.4690045872835617`*^9, 
+   3.469004599240383*^9}, {3.469004722047433*^9, 3.469004738567727*^9}, {
+   3.4690054716147223`*^9, 3.469005536396615*^9}, {3.469005627662134*^9, 
+   3.469005676562099*^9}, {3.469107972613818*^9, 3.469107996118194*^9}, 
+   3.469138953556435*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"mu", "[", "y_", "]"}], ":=", 
+   RowBox[{"Log", "[", 
+    RowBox[{"2", ",", 
+     RowBox[{
+      RowBox[{"P", "[", 
+       RowBox[{"[", 
+        RowBox[{"y", ",", "1"}], "]"}], "]"}], "/", 
+      RowBox[{"P", "[", 
+       RowBox[{"[", 
+        RowBox[{"y", ",", "2"}], "]"}], "]"}]}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.4691388261065607`*^9, 3.4691388888902693`*^9}, {
+  3.469138961595776*^9, 3.469138969654079*^9}, {3.469139929394471*^9, 
+  3.469139933754664*^9}, {3.4691399798798656`*^9, 3.469139985374289*^9}, {
+  3.4691400159865923`*^9, 3.469140048844009*^9}, {3.469140114797188*^9, 
+  3.469140121779022*^9}, {3.469142765140566*^9, 3.469142769212352*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Mu", "[", 
+    RowBox[{"y_", ",", "G_"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Flatten", "[", "\[IndentingNewLine]", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Sum", "[", 
+       RowBox[{
+        RowBox[{"mu", "[", 
+         RowBox[{
+          RowBox[{"y", "[", 
+           RowBox[{"[", "j", "]"}], "]"}], "+", "1"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"j", ",", 
+          RowBox[{"Position", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Transpose", "[", "G", "]"}], ",", "\[IndentingNewLine]", 
+            
+            RowBox[{"IntegerDigits", "[", 
+             RowBox[{"i", ",", "2", ",", 
+              RowBox[{"Length", "[", "G", "]"}]}], "]"}]}], 
+           "\[IndentingNewLine]", "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+       "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "0", ",", 
+        RowBox[{
+         RowBox[{"2", "^", 
+          RowBox[{"Length", "[", "G", "]"}]}], "-", "1"}]}], "}"}]}], "]"}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.4691381613433447`*^9, 3.4691382201030703`*^9}, {
+   3.46913837045894*^9, 3.46913838656432*^9}, {3.469138665273593*^9, 
+   3.469138820917379*^9}, {3.469139332036154*^9, 3.469139446581901*^9}, {
+   3.469139477679949*^9, 3.469139488249091*^9}, {3.4691395644137163`*^9, 
+   3.469139567058707*^9}, {3.469139759666299*^9, 3.469139762233227*^9}, {
+   3.4691398136632032`*^9, 3.4691398141877947`*^9}, {3.4691398575568237`*^9, 
+   3.469139870526943*^9}, {3.469139988977682*^9, 3.46914001369844*^9}, {
+   3.469140111371023*^9, 3.46914011146719*^9}, {3.469140156285886*^9, 
+   3.469140156441687*^9}, {3.4691402693429832`*^9, 3.469140271458967*^9}, {
+   3.46914040959159*^9, 3.46914041252584*^9}, {3.469140485639118*^9, 
+   3.469140500778824*^9}, {3.4691409041339827`*^9, 3.4691409103018312`*^9}, {
+   3.469140965927299*^9, 3.46914096607134*^9}, 3.4691415804280357`*^9, {
+   3.4691425963211327`*^9, 3.469142609701296*^9}, {3.469142646190587*^9, 
+   3.46914264628063*^9}, 3.469142730107551*^9, {3.469142775826791*^9, 
+   3.469142776486095*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Dml", "[", 
+    RowBox[{"y_", ",", "G_"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"M", "=", 
+       RowBox[{"HadamardMultiply", "[", 
+        RowBox[{"Mu", "[", 
+         RowBox[{"y", ",", "G"}], "]"}], "]"}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"IntegerDigits", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Position", "[", 
+         RowBox[{"M", ",", 
+          RowBox[{"Max", "[", "M", "]"}]}], "]"}], "-", "1"}], ",", "2", ",", 
+       
+       RowBox[{"Length", "[", "G", "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.4691390151537647`*^9, 3.4691390303563023`*^9}, {
+  3.4691390869191103`*^9, 3.4691392560042057`*^9}, {3.469140896891927*^9, 
+  3.4691409021602163`*^9}, {3.4691410852221127`*^9, 3.4691410888359337`*^9}, {
+  3.469141179737908*^9, 3.469141206778573*^9}, {3.469141251038418*^9, 
+  3.469141270456616*^9}, {3.469141318095862*^9, 3.469141363287204*^9}, {
+  3.4691414117067127`*^9, 3.469141444969347*^9}, {3.469141516574957*^9, 
+  3.469141566926003*^9}, {3.4691416837731457`*^9, 3.469141686928133*^9}, {
+  3.46914174783108*^9, 3.469141750796982*^9}, {3.469141909124504*^9, 
+  3.469141909878083*^9}, {3.46914198007478*^9, 3.4691419844793262`*^9}, {
+  3.469142019871751*^9, 3.4691420644965754`*^9}, {3.4691423636073713`*^9, 
+  3.469142370090766*^9}, {3.4691427855344257`*^9, 3.469142788009802*^9}}]
+},
+WindowSize->{640, 620},
+WindowMargins->{{Automatic, 115}, {Automatic, 32}},
+FrontEndVersion->"7.0 for Mac OS X PowerPC (32-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 2228, 52, 238, "Input"],
+Cell[2776, 74, 3317, 76, 223, "Input"],
+Cell[6096, 152, 721, 17, 27, "Input"],
+Cell[6820, 171, 2184, 46, 148, "Input"],
+Cell[9007, 219, 1527, 32, 88, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)

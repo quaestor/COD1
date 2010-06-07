@@ -1,0 +1,75 @@
+\section*{Aufgabe 18 - Hadamard-Matrizen}
+\addcontentsline{toc}{subsection}{Aufgabe 18 - Hadamard-Matrizen}
+\begin{enumerate}
+\item
+	Da die Hadamard-Matrix über die Vektoren aus $\mathds{B}^k$ indiziert
+	ist, gilt für $\hkp$, dass $2^k$ neue Indizes in beiden
+	Dimensionen hinzukommen, die genau die Indizes von $\hk$ mit
+	einer vorangestellten $1$ (die ursprünglichen Indizes werden um eine
+	$0$ vorangestellten $1$ (die ursprünglichen Indizes werden um eine $0$
+	erweitert).
+	
+	Die Skalarprodukte der Indizes sind also in den drei $2^{k} \times
+	2^{k}$-Untermatrizen von $\hkp$ identisch mit denjenigen
+	aus $\hk$, bei denen nicht sowohl im Zeilen- als auch im
+	Spaltenindex eine $1$ voranstehen. In dieser letzten Untermatrix ist
+	jedes Skalarprodukt genau um $1$ größer, was für die Einträge der
+	Untermatrix eine Negation bedeutet.
+\item
+	\lstset{ %
+		language=Mathematica,
+		basicstyle=\small,
+		numbers=left,
+		numberstyle=\small,
+		numbersep=-9pt
+	}
+	\begin{lstlisting}
+   HadamardMultiply[x_] :=
+      Module[{d, i},
+         d = HadamardMultiplyRec[x];
+         Return[
+            Table[
+            (* Index j binaer von hinten gelesen, 
+	       'Butterfly'-Algorithmus *)
+               i = 1 +(* Mathematica beginnt Indizierung bei 1 *)
+                  FromDigits[
+                   Reverse[
+                    IntegerDigits[j - 1, 2, Log[2, Length[d]]]], 2];
+               d[[i]],
+               {j, 1, Length[d]}
+            ]
+         ]
+      ];
+
+   HadamardMultiplyRec[x_] :=
+   (* prinzipiell FFT-Algorithmus ohne Verwendung von Einheitswurzeln *)
+      Module[{c, g, u},
+         If[Length[x] == 1,
+            (* "then" *)
+            x[[1]],
+            (* "else" *)
+            g = HadamardMultiplyRec[Take[x, {1, -1, 2}]];
+	                           (* x1, x3, x5, ... *)
+            u = HadamardMultiplyRec[Take[x, {2, -1, 2}]];
+	                           (* x2, x4, x6, ... *)
+            c = Flatten[{g + u, g - u}];
+            (* 2^k Additionen/Subtraktionen pro Ebene im Rekursionsbaum, 
+	       Log[2,2^k]=k Ebenen, insgesamt also k * 2^k 
+	       Additionen/Subtraktionen *)
+            Return[c];
+         ]
+      ];
+	\end{lstlisting}
+\item
+	Aus der Konstruktion von $\hk$ ist offensichtlich dass
+	$\hk = \hk^{t}$. Dann folgt:
+	\[ \hkp^{2} = \begin{bmatrix}2\hk^{2} & \hk^{2} + \hk\cdot(-\hk) \\
+	\hk^{2} + \hk\cdot(-\hk) & \hk^{2} + (-\hk)^{2}\end{bmatrix} =
+	\begin{bmatrix}2\hk^{2} & [0] \\ [0] & 2\hk^{2}\end{bmatrix} \]
+	Wegen
+	\[ \mathcal{H}_{1}^{2} = \begin{bmatrix}2&0\\0&2\end{bmatrix} \]
+	gilt wie behauptet
+	\[ \hk^{2} = \begin{bmatrix}2^{k}\begin{bmatrix}1&0\\0&1\end{bmatrix} &
+	\bigg[\ \  0\ \ \bigg] \\[1.0em] \bigg[\ \ 0\ \ \bigg] & 2^{k}\begin{bmatrix}1&0\\0&1\end{bmatrix}\end{bmatrix} = 2^{k}
+	\mathds{1}_{2^{k}}\]
+\end{enumerate}

@@ -1,0 +1,19 @@
+\section*{Aufgabe 24 - Verkürzte Codes und MDS-Codes}
+\addcontentsline{toc}{subsection}{Aufgabe 24 - Verkürzte Codes und MDS-Codes}
+\begin{enumerate}
+	\item
+		\begin{itemize}
+		\item $n' = n - 1$, da offensichtlich jedes Codewort im neuen
+		Code um genau eine Stelle kürzer ist.
+		\item $k' \in \{k, k-1\}$, 
+		\item $d' \geq d$, denn die Stelle, an der verkürzt wird, trägt
+		nicht mehr zur Minimaldistanz bei und da die Anzahl der
+		Codewörter höchstens verringert wird besteht die Möglichkeit,
+		dass die Minimaldistanz größer wird.
+		\end{itemize}
+	\item
+		Aus (1.) folgt, dass beim Verkürzen $d' \geq d$. Ein verkürzter
+		MDS-Code ist damit von der Form $[n-1, k', d']$ mit $d' \geq d
+		= n - k + 1$. Da $n - k \leq (n - 1) - k' + 1 \leq n - k + 1$ muss $k' = k
+		- 1$ und $d' = d$ gelten.
+\end{enumerate}
